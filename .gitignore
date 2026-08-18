@@ -1,0 +1,24 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# ROS 2 编译和运行产物
+build/
+install/
+log/
+
+# 运行日志和本地调试输出
+*.log
+*.tmp
+
+# YOLOE / PyTorch 模型权重（请按许可证单独下载）
+*.pt
+*.pth
+*.onnx
+
+# 本地环境和编辑器配置
+.env
+.venv/
+venv/
+.vscode/
+.idea/

@@ -1,0 +1,7 @@
+# 收纳区标签固定在工作台上，位置变化后只需重新标定该标签与收纳区的偏移。
+tag_id: 100
+enabled: false
+tag_to_place:
+  translation: [0.0, 0.0, 0.080]
+  rotation_xyzw: [0.0, 0.0, 0.0, 1.0]
+approach_height_m: 0.10

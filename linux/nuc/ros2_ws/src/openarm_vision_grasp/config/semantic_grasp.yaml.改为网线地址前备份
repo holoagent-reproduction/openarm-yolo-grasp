@@ -1,0 +1,115 @@
+frames:
+  world: world
+  tcp: openarm_left_hand_tcp
+  head_optical: head_d435i_color_optical_frame
+  wrist_optical: left_wrist_d415_color_optical_frame
+
+calibration:
+  # 只有重新标定满足平移 RMS < 10 mm、旋转 RMS < 3° 后才允许改为 true。
+  head_calibrated: false
+  wrist_calibrated: false
+  tool_orientation_calibrated: false
+  max_translation_rms_mm: 10.0
+  max_rotation_rms_deg: 3.0
+
+yoloe:
+  server_url: http://172.16.20.42:8765/infer
+  request_timeout_s: 1.5
+  max_request_rate_hz: 5.0
+  jpeg_quality: 85
+  confidence_threshold: 0.40
+  iou_threshold: 0.60
+  image_size: 640
+  head_image_topic: /openarm_vision/head_d435i/color/image_raw
+  wrist_image_topic: /openarm_vision/left_wrist_d415/color/image_raw
+
+depth:
+  topic: /openarm_vision/head_d435i/aligned_depth_to_color/image_raw
+  camera_info_topic: /openarm_vision/head_d435i/color/camera_info
+  max_sync_error_s: 0.15
+  depth_scale_16uc1: 0.001
+  min_depth_m: 0.18
+  max_depth_m: 1.50
+  min_points: 150
+  max_depth_std_m: 0.06
+  outlier_mad_scale: 3.5
+
+tracking:
+  stable_observations: 4
+  max_position_std_m: 0.005
+  stale_after_s: 1.0
+  left_reach_center: [0.35, 0.20, 0.35]
+
+workspace:
+  x: [0.10, 0.70]
+  y: [-0.10, 0.65]
+  z: [0.02, 0.85]
+  table_z: 0.0
+  table_edge_margin_m: 0.05
+
+motion:
+  group_name: left_arm
+  tcp_link: openarm_left_hand_tcp
+  velocity_scaling: 0.05
+  acceleration_scaling: 0.05
+  planning_time_s: 8.0
+  pregrasp_distance_m: 0.12
+  lift_distance_m: 0.10
+  cartesian_step_m: 0.005
+  minimum_cartesian_fraction: 0.98
+  # 必须通过空载试验确定该四元数后才能打开真实运动。
+  tool_down_orientation_xyzw: [0.0, 0.0, 0.0, 1.0]
+  gripper_open_position: 0.040
+  gripper_max_effort: 20.0
+  verify_timeout_s: 3.0
+  wrist_roi_normalized: [0.25, 0.20, 0.75, 0.90]
+
+classes:
+  cup:
+    中文: [水杯, 杯子, 茶杯]
+    enabled: true
+    size_min_m: [0.035, 0.035, 0.040]
+    size_max_m: [0.130, 0.130, 0.260]
+    gripper_open_m: 0.080
+    gripper_close_m: 0.018
+    grasp_height_ratio: 0.55
+  mug:
+    中文: [马克杯, 带把杯]
+    enabled: true
+    size_min_m: [0.050, 0.050, 0.050]
+    size_max_m: [0.180, 0.180, 0.220]
+    gripper_open_m: 0.090
+    gripper_close_m: 0.022
+    grasp_height_ratio: 0.55
+  plastic bottle:
+    中文: [水瓶, 塑料瓶, 饮料瓶]
+    enabled: true
+    size_min_m: [0.035, 0.035, 0.080]
+    size_max_m: [0.140, 0.140, 0.360]
+    gripper_open_m: 0.085
+    gripper_close_m: 0.020
+    grasp_height_ratio: 0.55
+  can:
+    中文: [易拉罐, 罐子]
+    enabled: true
+    size_min_m: [0.040, 0.040, 0.060]
+    size_max_m: [0.110, 0.110, 0.220]
+    gripper_open_m: 0.080
+    gripper_close_m: 0.018
+    grasp_height_ratio: 0.55
+  carton:
+    中文: [纸盒, 饮料盒]
+    enabled: true
+    size_min_m: [0.035, 0.025, 0.050]
+    size_max_m: [0.180, 0.150, 0.300]
+    gripper_open_m: 0.090
+    gripper_close_m: 0.020
+    grasp_height_ratio: 0.55
+  small box:
+    中文: [小盒子, 包装盒]
+    enabled: true
+    size_min_m: [0.035, 0.025, 0.025]
+    size_max_m: [0.220, 0.180, 0.220]
+    gripper_open_m: 0.095
+    gripper_close_m: 0.020
+    grasp_height_ratio: 0.50

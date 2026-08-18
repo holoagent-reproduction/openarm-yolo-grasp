@@ -1,0 +1,271 @@
+{
+  "accepted": true,
+  "mode": "eye_in_hand",
+  "original_sample_count": 23,
+  "cleaned_sample_count": 15,
+  "kept_indices_zero_based": [
+    1,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    20,
+    21,
+    22
+  ],
+  "kept_sample_numbers_one_based": [
+    2,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    20,
+    21,
+    22,
+    23
+  ],
+  "rejected": [
+    {
+      "index_zero_based": 2,
+      "sample_number_one_based": 3,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 23.451687951162857,
+      "residual_before_rotation_deg": 17.889920337283307
+    },
+    {
+      "index_zero_based": 18,
+      "sample_number_one_based": 19,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 7.586559965881744,
+      "residual_before_rotation_deg": 5.175925845177764
+    },
+    {
+      "index_zero_based": 7,
+      "sample_number_one_based": 8,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 8.752163021122275,
+      "residual_before_rotation_deg": 4.452861678739391
+    },
+    {
+      "index_zero_based": 4,
+      "sample_number_one_based": 5,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 9.221776141985616,
+      "residual_before_rotation_deg": 4.931773853959168
+    },
+    {
+      "index_zero_based": 0,
+      "sample_number_one_based": 1,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 24.69524520440278,
+      "residual_before_rotation_deg": 1.2199179929127033
+    },
+    {
+      "index_zero_based": 6,
+      "sample_number_one_based": 7,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 11.847194703628464,
+      "residual_before_rotation_deg": 5.531277547878598
+    },
+    {
+      "index_zero_based": 3,
+      "sample_number_one_based": 4,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 6.459750289255513,
+      "residual_before_rotation_deg": 5.611503169484399
+    },
+    {
+      "index_zero_based": 5,
+      "sample_number_one_based": 6,
+      "reason": "留一法剔除后整体门控分数改善",
+      "residual_before_translation_mm": 9.953270286164624,
+      "residual_before_rotation_deg": 3.8957490413115416
+    }
+  ],
+  "near_duplicates": [
+    {
+      "first": 7,
+      "second": 8,
+      "translation_mm": 0.0006515353248634379,
+      "rotation_deg": 0.00042742436208746215
+    }
+  ],
+  "parent_frame": "openarm_left_hand_tcp",
+  "child_frame": "left_wrist_d415_color_optical_frame",
+  "translation_m": [
+    0.041381582482224046,
+    -0.014848739649236296,
+    -0.11271359551640069
+  ],
+  "rotation_xyzw": [
+    0.05696372651012341,
+    0.026478503698007874,
+    0.7167814445988775,
+    0.6944626580189468
+  ],
+  "quality": {
+    "translation_rms_mm": 7.785716570797903,
+    "rotation_rms_deg": 2.0623940972879558
+  },
+  "pose_coverage": {
+    "translation_span_xyz_mm": [
+      55.25049470216536,
+      81.80977806831383,
+      62.76570667562154
+    ],
+    "pair_rotation_median_deg": 11.145993732252531,
+    "pair_rotation_max_deg": 24.600836559949546
+  },
+  "iterations": [
+    {
+      "count": 23,
+      "translation_rms_mm": 76.01968596974572,
+      "rotation_rms_deg": 17.049523465490005
+    },
+    {
+      "count": 22,
+      "translation_rms_mm": 9.87903445158912,
+      "rotation_rms_deg": 3.200777897766091
+    },
+    {
+      "count": 21,
+      "translation_rms_mm": 10.025079056881996,
+      "rotation_rms_deg": 3.0604136083750375
+    },
+    {
+      "count": 20,
+      "translation_rms_mm": 9.608150420907862,
+      "rotation_rms_deg": 2.9629679398724447
+    },
+    {
+      "count": 19,
+      "translation_rms_mm": 9.604995899480112,
+      "rotation_rms_deg": 2.8054552921624882
+    },
+    {
+      "count": 18,
+      "translation_rms_mm": 8.470456908623508,
+      "rotation_rms_deg": 2.859629543338281
+    },
+    {
+      "count": 17,
+      "translation_rms_mm": 7.832308745156332,
+      "rotation_rms_deg": 2.5972126533328694
+    },
+    {
+      "count": 16,
+      "translation_rms_mm": 7.9673498380379035,
+      "rotation_rms_deg": 2.2486064276593813
+    },
+    {
+      "count": 15,
+      "translation_rms_mm": 7.785716570797903,
+      "rotation_rms_deg": 2.0623940972879558
+    }
+  ],
+  "kept_sample_residuals": [
+    {
+      "original_index_zero_based": 1,
+      "sample_number_one_based": 2,
+      "translation_mm": 6.467707760014782,
+      "rotation_deg": 2.4879800861113863
+    },
+    {
+      "original_index_zero_based": 8,
+      "sample_number_one_based": 9,
+      "translation_mm": 12.998071312236142,
+      "rotation_deg": 2.4867018640370984
+    },
+    {
+      "original_index_zero_based": 9,
+      "sample_number_one_based": 10,
+      "translation_mm": 13.399331194134833,
+      "rotation_deg": 5.480674792139702
+    },
+    {
+      "original_index_zero_based": 10,
+      "sample_number_one_based": 11,
+      "translation_mm": 11.605405438508638,
+      "rotation_deg": 1.146591993835218
+    },
+    {
+      "original_index_zero_based": 11,
+      "sample_number_one_based": 12,
+      "translation_mm": 5.794329822127679,
+      "rotation_deg": 0.8948253657538523
+    },
+    {
+      "original_index_zero_based": 12,
+      "sample_number_one_based": 13,
+      "translation_mm": 6.6242801377599765,
+      "rotation_deg": 1.690390506305009
+    },
+    {
+      "original_index_zero_based": 13,
+      "sample_number_one_based": 14,
+      "translation_mm": 5.20863372060366,
+      "rotation_deg": 0.9154296938325672
+    },
+    {
+      "original_index_zero_based": 14,
+      "sample_number_one_based": 15,
+      "translation_mm": 8.476298392131048,
+      "rotation_deg": 2.4761652422617058
+    },
+    {
+      "original_index_zero_based": 15,
+      "sample_number_one_based": 16,
+      "translation_mm": 4.4036529246063685,
+      "rotation_deg": 0.6284362410001192
+    },
+    {
+      "original_index_zero_based": 16,
+      "sample_number_one_based": 17,
+      "translation_mm": 6.0031738735890485,
+      "rotation_deg": 1.1576529047980597
+    },
+    {
+      "original_index_zero_based": 17,
+      "sample_number_one_based": 18,
+      "translation_mm": 5.299977897274948,
+      "rotation_deg": 1.0171822483521913
+    },
+    {
+      "original_index_zero_based": 19,
+      "sample_number_one_based": 20,
+      "translation_mm": 4.201688551147254,
+      "rotation_deg": 1.1657126230906647
+    },
+    {
+      "original_index_zero_based": 20,
+      "sample_number_one_based": 21,
+      "translation_mm": 8.163879554058198,
+      "rotation_deg": 1.56326792075176
+    },
+    {
+      "original_index_zero_based": 21,
+      "sample_number_one_based": 22,
+      "translation_mm": 4.4268204898329,
+      "rotation_deg": 1.1898121473301828
+    },
+    {
+      "original_index_zero_based": 22,
+      "sample_number_one_based": 23,
+      "translation_mm": 4.516569750597911,
+      "rotation_deg": 1.2083893700287935
+    }
+  ]
+}

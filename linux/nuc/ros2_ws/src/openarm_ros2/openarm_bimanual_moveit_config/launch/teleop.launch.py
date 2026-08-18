@@ -1,0 +1,142 @@
+import os
+
+import xacro
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchContext, LaunchDescription
+from launch.actions import DeclareLaunchArgument, LogInfo, OpaqueFunction, TimerAction
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
+
+
+def resolve_hardware_type(context: LaunchContext, mode) -> str:
+    mode_str = context.perform_substitution(mode).strip().lower()
+    if mode_str == "real":
+        return "real"
+    if mode_str == "sim":
+        return "mujoco"
+    raise ValueError(f"Unsupported mode: {mode_str}, expected real or sim")
+
+
+def generate_robot_description(context: LaunchContext, mode) -> str:
+    hardware_type = resolve_hardware_type(context, mode)
+    xacro_path = os.path.join(
+        get_package_share_directory("openarm_description"),
+        "urdf",
+        "robot",
+        "v10.urdf.xacro",
+    )
+
+    return xacro.process_file(
+        xacro_path,
+        mappings={
+            "bimanual": "true",
+            "hardware_type": hardware_type,
+            "ros2_control": "true",
+            # 仅双臂 ZLG 转接盒：can0=右臂，can1=左臂；两路均为 CAN-FD。
+            "left_can_interface": "can1",
+            "right_can_interface": "can0",
+        },
+    ).toprettyxml(indent="  ")
+
+
+def spawn_robot_nodes(context: LaunchContext, mode):
+    robot_description = generate_robot_description(context, mode)
+    robot_description_param = {"robot_description": robot_description}
+    controllers_file = os.path.join(
+        get_package_share_directory("openarm_bringup"),
+        "config",
+        "v10_controllers",
+        "openarm_v10_bimanual_controllers.yaml",
+    )
+
+    robot_state_publisher_node = Node(
+        package="robot_state_publisher",
+        executable="robot_state_publisher",
+        name="robot_state_publisher",
+        output="screen",
+        parameters=[robot_description_param],
+    )
+    ros2_control_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        output="both",
+        parameters=[robot_description_param, controllers_file],
+    )
+    return [robot_state_publisher_node, ros2_control_node]
+
+
+def generate_mode_log(context: LaunchContext, mode):
+    mode_str = context.perform_substitution(mode).strip().lower()
+    hardware_type = resolve_hardware_type(context, mode)
+    hint_text = (
+        "[teleop.launch] mode="
+        + mode_str
+        + ", hardware_type="
+        + hardware_type
+        + ", fixed_topics: /joint_trajectory /joint_states /robot_description"
+    )
+    return [LogInfo(msg=hint_text)]
+
+
+def generate_launch_description():
+    mode = LaunchConfiguration("mode")
+
+    declare_mode = DeclareLaunchArgument(
+        "mode",
+        default_value="real",
+        choices=["real", "sim"],
+        description="Teleop running mode: real for hardware, sim for mujoco.",
+    )
+
+    spawn_robot_nodes_action = OpaqueFunction(function=spawn_robot_nodes, args=[mode])
+    mode_log_action = OpaqueFunction(function=generate_mode_log, args=[mode])
+
+    joint_state_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_state_broadcaster", "-c", "/controller_manager"],
+    )
+    arm_controller_spawner = Node(
+            package="controller_manager",
+            executable="spawner",
+            arguments=[
+                "left_forward_position_controller",   # 透传控制器（适合高频实时遥操）
+                "right_forward_position_controller",  # 透传控制器（适合高频实时遥操）
+                "-c",
+                "/controller_manager",
+            ],
+    )
+    gripper_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "left_gripper_controller",
+            "right_gripper_controller",
+            "-c",
+            "/controller_manager",
+        ],
+    )
+
+    delayed_joint_state_broadcaster = TimerAction(
+        period=1.0,
+        actions=[joint_state_broadcaster_spawner],
+    )
+    delayed_arm_controller = TimerAction(
+        period=2.0,
+        actions=[arm_controller_spawner],
+    )
+    delayed_gripper_controller = TimerAction(
+        period=2.0,
+        actions=[gripper_controller_spawner],
+    )
+
+    return LaunchDescription(
+        [
+            declare_mode,
+            mode_log_action,
+            spawn_robot_nodes_action,
+            delayed_joint_state_broadcaster,
+            delayed_arm_controller,
+            delayed_gripper_controller,
+        ]
+    )

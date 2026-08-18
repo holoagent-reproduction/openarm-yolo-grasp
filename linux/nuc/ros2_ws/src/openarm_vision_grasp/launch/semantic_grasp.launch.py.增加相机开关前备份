@@ -1,0 +1,46 @@
+"""启动双相机、YOLOE 客户端、三维融合、跟踪、SemanticPick Action 与 Skill 桥。"""
+from pathlib import Path
+
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
+from launch.conditions import IfCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
+
+
+def generate_launch_description():
+    share = Path(get_package_share_directory("openarm_vision_grasp"))
+    config = LaunchConfiguration("config_file")
+    cameras = LaunchConfiguration("cameras_file")
+    allow_motion = LaunchConfiguration("allow_motion")
+    show_ui = LaunchConfiguration("show_ui")
+    dual = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(str(share / "launch" / "dual_realsense_grasp.launch.py")),
+        launch_arguments={"cameras_file": cameras}.items())
+    common = [{"config_file": config}]
+    return LaunchDescription([
+        DeclareLaunchArgument("config_file", default_value=str(share / "config" / "semantic_grasp.yaml")),
+        DeclareLaunchArgument("cameras_file", default_value=str(share / "config" / "cameras.yaml")),
+        DeclareLaunchArgument("allow_motion", default_value="false",
+                              description="只有标定、空载和急停验收全部通过后才能设为 true"),
+        DeclareLaunchArgument("show_ui", default_value="false", description="在有本地桌面环境时显示确认界面"),
+        # NUC 的用户目录中存在 NumPy 2.x，而 ROS Humble 的 cv_bridge/OpenCV
+        # 使用系统 NumPy 1.x 构建。忽略用户级 Python 包可避免二进制 ABI 冲突。
+        SetEnvironmentVariable("PYTHONNOUSERSITE", "1"),
+        dual,
+        Node(package="openarm_vision_grasp", executable="semantic_command_node", output="screen", parameters=common),
+        Node(package="openarm_vision_grasp", executable="yoloe_client_node", output="screen",
+             additional_env={"PYTHONNOUSERSITE": "1"}, parameters=common),
+        Node(package="openarm_vision_grasp", executable="semantic_3d_node", output="screen",
+             additional_env={"PYTHONNOUSERSITE": "1"}, parameters=common),
+        Node(package="openarm_vision_grasp", executable="object_tracker_node", output="screen", parameters=common),
+        Node(package="openarm_vision_grasp", executable="semantic_grasp_task_node", output="screen",
+             parameters=[{"config_file": config,
+                          "allow_motion": ParameterValue(allow_motion, value_type=bool)}]),
+        Node(package="openarm_vision_grasp", executable="semantic_skill_bridge", output="screen"),
+        Node(package="openarm_vision_grasp", executable="semantic_confirm_ui", output="screen",
+             condition=IfCondition(show_ui)),
+    ])

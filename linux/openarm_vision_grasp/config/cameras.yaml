@@ -1,0 +1,31 @@
+# 将 serial 替换为实际序列号；标定完成前必须保持 calibrated: false。
+base_frame: world
+cameras:
+  head_d435i:
+    serial: "948522071105"
+    role: head
+    enable_depth: true
+    camera_name: head_d435i
+    image_topic: /openarm_vision/head_d435i/color/image_raw
+    camera_info_topic: /openarm_vision/head_d435i/color/camera_info
+    optical_frame: head_d435i_color_optical_frame
+    mount_frame: head_d435i_link
+    calibrated: true
+    parent_frame: world
+    translation: [0.03193326698113413, 0.011635561132399545, 0.7465641233145023]
+    rotation_xyzw: [0.0036385603247321937, 0.30617805497517947, 0.035871018910270294, 0.9512912432755378]
+  left_wrist_d415:
+    serial: "319522061374"
+    role: wrist
+    # 用于近距离判断杯子到夹爪的距离；若设备固件仍报深度故障，
+    # 启动后会保留彩色流并在日志中提示，不会修改原三相机程序。
+    enable_depth: true
+    camera_name: left_wrist_d415
+    image_topic: /openarm_vision/left_wrist_d415/color/image_raw
+    camera_info_topic: /openarm_vision/left_wrist_d415/color/camera_info
+    optical_frame: left_wrist_d415_color_optical_frame
+    mount_frame: left_wrist_d415_link
+    calibrated: true
+    parent_frame: openarm_left_hand_tcp
+    translation: [0.04093716934456146, 0.0002894283974149998, -0.11257215098604162]
+    rotation_xyzw: [-0.7498479519687907, 0.0003420876775869867, -0.661203174083668, 0.023201174235667636]

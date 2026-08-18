@@ -1,0 +1,14 @@
+# 仅由本包的抓取启动文件引用，不覆盖原 MoveIt 配置。
+sensors:
+  - head_depth
+head_depth:
+  sensor_plugin: occupancy_map_monitor/DepthImageOctomapUpdater
+  image_topic: /openarm_vision/head_d435i/aligned_depth_to_color/image_raw
+  queue_size: 5
+  max_update_rate: 1.0
+  near_clipping_plane_distance: 0.30
+  far_clipping_plane_distance: 4.0
+  padding_offset: 0.03
+  padding_scale: 4.0
+  shadow_threshold: 0.2
+  filtered_cloud_topic: /openarm_vision/filtered_cloud

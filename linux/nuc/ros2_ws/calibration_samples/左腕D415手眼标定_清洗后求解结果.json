@@ -1,0 +1,23 @@
+{
+  "accepted": true,
+  "mode": "eye_in_hand",
+  "sample_count": 15,
+  "rejected_sample_indices": [],
+  "parent_frame": "openarm_left_hand_tcp",
+  "child_frame": "left_wrist_d415_color_optical_frame",
+  "translation_m": [
+    0.041381582482224046,
+    -0.014848739649236296,
+    -0.11271359551640069
+  ],
+  "rotation_xyzw": [
+    0.05696372651012341,
+    0.026478503698007874,
+    0.7167814445988775,
+    0.6944626580189468
+  ],
+  "quality": {
+    "translation_rms_mm": 7.785716570797903,
+    "rotation_rms_deg": 2.0623940972879558
+  }
+}

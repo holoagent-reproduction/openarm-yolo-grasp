@@ -1,0 +1,38 @@
+{
+  "accepted": false,
+  "mode": "eye_to_hand",
+  "sample_count": 33,
+  "rejected_sample_indices": [
+    21
+  ],
+  "parent_frame": "world",
+  "child_frame": "head_d435i_color_optical_frame",
+  "translation_m": [
+    0.3686545225651989,
+    0.3985745718863281,
+    0.43697950107946576
+  ],
+  "rotation_xyzw": [
+    0.5116348996679182,
+    0.6608726041620137,
+    0.4687169854592629,
+    0.2859746807881755
+  ],
+  "quality": {
+    "translation_rms_mm": 223.56891629543506,
+    "rotation_rms_deg": 10.262314514727937
+  },
+  "hand_to_tag": {
+    "translation_m": [
+      -0.09805018275968225,
+      -0.3414123277767374,
+      0.3279570622581076
+    ],
+    "rotation_xyzw": [
+      -0.6612178264048294,
+      0.7011690119398448,
+      -0.07574032384243086,
+      0.2557663114720516
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "说明": "left_hand 到 left_wrist_d415_color_optical_frame 的标定结果；尚未自动写入相机配置。",
+  "parent_frame": "openarm_left_hand",
+  "child_frame": "left_wrist_d415_color_optical_frame",
+  "method": "PARK",
+  "sample_count": 20,
+  "translation_m": [
+    0.07195575515239257,
+    -0.0326078433812444,
+    0.0025889632804241888
+  ],
+  "rotation_xyzw": [
+    0.005028876422026701,
+    0.010334246782652157,
+    -0.7044603609036285,
+    0.7096502756012266
+  ],
+  "quality": {
+    "tag_world_translation_rms_mm": 19.51881423746609,
+    "tag_world_rotation_rms_deg": 2.162877003951887
+  },
+  "tag_in_world_mean_translation_m": [
+    0.6450853731156069,
+    0.03299809414182155,
+    0.3723259104049462
+  ]
+}

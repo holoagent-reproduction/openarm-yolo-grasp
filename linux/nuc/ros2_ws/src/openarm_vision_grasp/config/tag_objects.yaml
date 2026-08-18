@@ -1,0 +1,22 @@
+# 每个物品贴一张 36h11 AprilTag。tag_to_grasp 是标签坐标系到夹爪抓取点的变换。
+tag_family: DICT_APRILTAG_36h11
+tag_size_m: 0.050
+left_arm:
+  group_name: left_arm
+  tcp_link: openarm_left_link7
+  pregrasp_distance_m: 0.10
+  lift_distance_m: 0.10
+  max_head_wrist_position_error_m: 0.03
+  max_head_wrist_angle_error_deg: 10.0
+  max_velocity_scaling: 0.10
+  max_acceleration_scaling: 0.10
+  gripper_open_position: 0.040
+objects:
+  # 删除示例前请先在真机外验证标签朝向、偏移和夹爪开度。
+  "0":
+    name: 示例物品
+    enabled: false
+    gripper_close_position: 0.015
+    tag_to_grasp:
+      translation: [0.0, 0.0, 0.030]
+      rotation_xyzw: [0.0, 0.0, 0.0, 1.0]

@@ -1,0 +1,11 @@
+std_msgs/Header header
+string task_id
+string class_name
+float32 confidence
+int32 track_id
+geometry_msgs/Pose pose
+geometry_msgs/Vector3 size
+float32 grasp_yaw
+uint32 point_count
+float32 depth_std
+bool stable

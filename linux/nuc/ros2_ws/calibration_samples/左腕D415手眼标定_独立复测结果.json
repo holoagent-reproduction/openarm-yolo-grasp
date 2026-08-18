@@ -1,0 +1,143 @@
+{
+  "accepted": true,
+  "sample_count": 7,
+  "source_samples": "/home/nuc/ros2_ws/calibration_samples/左腕D415手眼标定_独立复测样本.json",
+  "source_calibration_result": "/home/nuc/ros2_ws/calibration_samples/左腕D415手眼标定_清洗后求解结果.json",
+  "parent_frame": "world",
+  "validated_camera_frame": "left_wrist_d415_color_optical_frame",
+  "tag_world_mean_translation_m": [
+    0.5424166735994782,
+    0.2212316678135551,
+    0.40766476833217
+  ],
+  "tag_world_mean_rotation_xyzw": [
+    0.1298210969818667,
+    -0.1208936639464053,
+    -0.7088459100080255,
+    0.6826922298231702
+  ],
+  "quality": {
+    "translation_rms_mm": 7.7317946747933854,
+    "translation_max_mm": 11.982978372871104,
+    "rotation_rms_deg": 2.021511820536006,
+    "rotation_max_deg": 4.127751059535391
+  },
+  "thresholds": {
+    "max_translation_rms_mm": 10.0,
+    "max_rotation_rms_deg": 3.0
+  },
+  "samples": [
+    {
+      "sample_number": 1,
+      "tag_world_translation_m": [
+        0.5521163617966915,
+        0.2194323134417789,
+        0.4095939354546228
+      ],
+      "tag_world_rotation_xyzw": [
+        0.14147864092883633,
+        -0.1250465325952297,
+        -0.7091069796469198,
+        0.6793485484365611
+      ],
+      "translation_error_mm": 10.052030295653841,
+      "rotation_error_deg": 1.469255342349085
+    },
+    {
+      "sample_number": 2,
+      "tag_world_translation_m": [
+        0.5407029095236324,
+        0.2212316678135551,
+        0.3993292022628787
+      ],
+      "tag_world_rotation_xyzw": [
+        0.1365104299264128,
+        -0.12805249462959517,
+        -0.7083592364203471,
+        0.6805840530885412
+      ],
+      "translation_error_mm": 8.50991474711587,
+      "rotation_error_deg": 1.1497944640997577
+    },
+    {
+      "sample_number": 3,
+      "tag_world_translation_m": [
+        0.5440375456903662,
+        0.21786971830481244,
+        0.40766476833217
+      ],
+      "tag_world_rotation_xyzw": [
+        0.12654845853438068,
+        -0.1326690269384304,
+        -0.7149201482274854,
+        0.6747396524528351
+      ],
+      "translation_error_mm": 3.7322822554510413,
+      "rotation_error_deg": 1.8100910406853425
+    },
+    {
+      "sample_number": 4,
+      "tag_world_translation_m": [
+        0.5424166735994782,
+        0.22486941890717974,
+        0.41142113132939107
+      ],
+      "tag_world_rotation_xyzw": [
+        0.12324284965922591,
+        -0.12455615077845265,
+        -0.7039962902963101,
+        0.6882486386184593
+      ],
+      "translation_error_mm": 5.229100877403174,
+      "rotation_error_deg": 1.2077355926656552
+    },
+    {
+      "sample_number": 5,
+      "tag_world_translation_m": [
+        0.5426031309256908,
+        0.2249042457079464,
+        0.4112031182923234
+      ],
+      "tag_world_rotation_xyzw": [
+        0.12537568591645096,
+        -0.12853110967839554,
+        -0.7036770879391424,
+        0.6874585421211291
+      ],
+      "translation_error_mm": 5.103186765677647,
+      "rotation_error_deg": 1.2940632858350583
+    },
+    {
+      "sample_number": 6,
+      "tag_world_translation_m": [
+        0.540157141626373,
+        0.22659053820645958,
+        0.4071433367563231
+      ],
+      "tag_world_rotation_xyzw": [
+        0.1262801422693157,
+        -0.12033177992943582,
+        -0.7017585321669294,
+        0.6907304473804322
+      ],
+      "translation_error_mm": 5.839081050449913,
+      "rotation_error_deg": 1.2949317660283204
+    },
+    {
+      "sample_number": 7,
+      "tag_world_translation_m": [
+        0.5418572505229029,
+        0.21391757471730655,
+        0.39818938661503056
+      ],
+      "tag_world_rotation_xyzw": [
+        0.12916972641043845,
+        -0.08691772283429387,
+        -0.7193378939767421,
+        0.6769885416500481
+      ],
+      "translation_error_mm": 11.982978372871104,
+      "rotation_error_deg": 4.127751059535391
+    }
+  ]
+}

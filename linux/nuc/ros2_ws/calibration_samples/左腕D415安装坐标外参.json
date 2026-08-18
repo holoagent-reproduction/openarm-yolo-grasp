@@ -1,0 +1,21 @@
+{
+  "parent_frame": "openarm_left_hand_tcp",
+  "child_frame": "left_wrist_d415_link",
+  "translation_m": [
+    0.04093716934456146,
+    0.0002894283974149998,
+    -0.11257215098604162
+  ],
+  "rotation_xyzw": [
+    -0.7498479519687907,
+    0.0003420876775869867,
+    -0.661203174083668,
+    0.023201174235667636
+  ],
+  "composition_check": {
+    "translation_error_mm": 3.469446951953614e-15,
+    "rotation_error_deg": 0.0
+  },
+  "source_optical_result": "左腕D415手眼标定_清洗后求解结果.json",
+  "source_internal_tf": "D415内部固定变换.json"
+}

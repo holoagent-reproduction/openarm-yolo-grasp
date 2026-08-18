@@ -1,0 +1,142 @@
+frames:
+  world: world
+  tcp: openarm_left_hand_tcp
+  head_optical: head_d435i_color_optical_frame
+  wrist_optical: left_wrist_d415_color_optical_frame
+
+calibration:
+  # 只有重新标定满足平移 RMS < 10 mm、旋转 RMS < 3° 后才允许改为 true。
+  head_calibrated: true
+  wrist_calibrated: true
+  tool_orientation_calibrated: true
+  max_translation_rms_mm: 10.0
+  max_rotation_rms_deg: 3.0
+
+yoloe:
+  # Windows 直连网卡地址；不要使用旧 Wi-Fi 地址 172.16.20.75。
+  server_url: http://172.16.13.1:8765/infer
+  request_timeout_s: 1.5
+  max_request_rate_hz: 5.0
+  jpeg_quality: 85
+  confidence_threshold: 0.40
+  iou_threshold: 0.60
+  image_size: 640
+  head_image_topic: /openarm_vision/head_d435i/color/image_raw
+  wrist_image_topic: /openarm_vision/left_wrist_d415/color/image_raw
+
+depth:
+  topic: /openarm_vision/head_d435i/aligned_depth_to_color/image_raw
+  camera_info_topic: /openarm_vision/head_d435i/color/camera_info
+  max_sync_error_s: 0.15
+  depth_scale_16uc1: 0.001
+  min_depth_m: 0.18
+  max_depth_m: 1.50
+  min_points: 150
+  max_depth_std_m: 0.06
+  outlier_mad_scale: 3.5
+
+tracking:
+  stable_observations: 4
+  max_position_std_m: 0.005
+  stale_after_s: 1.0
+  left_reach_center: [0.35, 0.20, 0.35]
+
+workspace:
+  x: [0.10, 0.70]
+  y: [-0.10, 0.65]
+  z: [0.02, 0.85]
+  table_z: 0.0
+  table_edge_margin_m: 0.05
+
+motion:
+  # 左臂 45°斜侧抓取：从目标前上方斜向接近，避免正侧直线穿过杯体或桌面。
+  grasp_strategy: slanted_side
+  group_name: left_arm
+  tcp_link: openarm_left_hand_tcp
+  velocity_scaling: 0.05
+  acceleration_scaling: 0.05
+  planning_time_s: 8.0
+  execution_timeout_s: 45.0
+  service_timeout_s: 8.0
+  gripper_timeout_s: 10.0
+  # 45°斜向接近先用 8 cm，减少笛卡尔路径过长导致比例过低。
+  pregrasp_distance_m: 0.08
+  lift_distance_m: 0.10
+  # 旧的正侧抓取方向，保留用于回退。
+  side_approach_axis_xyz: [1.0, 0.0, 0.0]
+  # 俯视桌面时从杯子西南角接近：现场确认 world +x,+y 会表现为正南，
+  # 因此西南方向改为保留 +x、反转 y，即 world +x,-y 的 45°对角线。
+  slanted_side_approach_axis_xyz: [0.7071, -0.7071, 0.0]
+  # 根据先前手动放到杯子前方时记录的 TCP 姿态。
+  side_grasp_orientation_xyzw: [0.739, 0.345, 0.538, -0.214]
+  # slanted_side 使用规划时真实 TCP 姿态；不对四元数做世界坐标猜测。
+  # 当前视觉目标偏后、偏下的临时补偿；必须先在 RViz 预览确认。
+  side_grasp_offset_xyz: [0.000, 0.000, 0.030]
+  # 左臂桌面内对角接近的末端工具补偿：在原位置基础上沿 +x,-y 方向再前进约 5 cm，抬高 1 cm。
+  slanted_side_grasp_offset_xyz: [0.1131, -0.1131, 0.010]
+  cartesian_step_m: 0.005
+  approach_step_m: 0.010
+  wrist_stop_distance_m: 0.100
+  approach_max_steps: 12
+  minimum_cartesian_fraction: 0.98
+  # 必须通过空载试验确定该四元数后才能打开真实运动。
+  tool_down_orientation_xyzw: [0.997700, -0.033990, -0.028991, -0.050985]
+  gripper_open_position: 0.044
+  gripper_max_effort: 20.0
+  # 夹爪已完成方向与控制验证；false 时不发送任何夹爪运动命令。
+  gripper_motion_enabled: true
+  verify_timeout_s: 3.0
+  wrist_roi_normalized: [0.25, 0.20, 0.75, 0.90]
+
+classes:
+  cup:
+    中文: [水杯, 杯子, 茶杯]
+    enabled: true
+    size_min_m: [0.035, 0.035, 0.040]
+    size_max_m: [0.130, 0.130, 0.260]
+    gripper_open_m: 0.044
+    # 夹爪行程 0.0 为完全闭合、0.044 为最大张开；0.018 只会闭合到中间。
+    # 水杯执行全闭合；若夹住杯体，实际位置会因阻挡停在略大于 0 的位置。
+    gripper_close_m: 0.000
+    gripper_gap_epsilon_m: 0.0002
+    grasp_height_ratio: 0.55
+  mug:
+    中文: [马克杯, 带把杯]
+    enabled: true
+    size_min_m: [0.050, 0.050, 0.050]
+    size_max_m: [0.180, 0.180, 0.220]
+    gripper_open_m: 0.044
+    gripper_close_m: 0.008
+    grasp_height_ratio: 0.55
+  plastic bottle:
+    中文: [水瓶, 塑料瓶, 饮料瓶]
+    enabled: true
+    size_min_m: [0.035, 0.035, 0.080]
+    size_max_m: [0.140, 0.140, 0.360]
+    gripper_open_m: 0.044
+    gripper_close_m: 0.008
+    grasp_height_ratio: 0.55
+  can:
+    中文: [易拉罐, 罐子]
+    enabled: true
+    size_min_m: [0.040, 0.040, 0.060]
+    size_max_m: [0.110, 0.110, 0.220]
+    gripper_open_m: 0.044
+    gripper_close_m: 0.006
+    grasp_height_ratio: 0.55
+  carton:
+    中文: [纸盒, 饮料盒]
+    enabled: true
+    size_min_m: [0.035, 0.025, 0.050]
+    size_max_m: [0.180, 0.150, 0.300]
+    gripper_open_m: 0.044
+    gripper_close_m: 0.008
+    grasp_height_ratio: 0.55
+  small box:
+    中文: [小盒子, 包装盒]
+    enabled: true
+    size_min_m: [0.035, 0.025, 0.025]
+    size_max_m: [0.220, 0.180, 0.220]
+    gripper_open_m: 0.044
+    gripper_close_m: 0.008
+    grasp_height_ratio: 0.50

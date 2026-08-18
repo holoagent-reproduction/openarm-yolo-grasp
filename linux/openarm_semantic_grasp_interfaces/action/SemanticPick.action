@@ -1,0 +1,20 @@
+# 目标
+string instruction
+bool preview_only
+---
+# 结果
+bool success
+string task_id
+string target_class
+int32 target_track_id
+string error_code
+string message
+---
+# 反馈
+string task_id
+string state
+string target_class
+float32 confidence
+geometry_msgs/PoseStamped target_pose
+bool plan_ready
+string message
